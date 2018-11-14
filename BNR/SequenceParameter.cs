@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using System.Linq;
 using System.Text;
 
 namespace BNR
@@ -30,14 +29,15 @@ namespace BNR
         static SequenceParameter()
         {
             string filename = AppDomain.CurrentDomain.BaseDirectory + "sequence.data";
-            if (!System.IO.File.Exists(filename))
+            if (!File.Exists(filename))
             {
-                mFileStream = System.IO.File.Open(filename, System.IO.FileMode.OpenOrCreate);
+                mFileStream = File.Open(filename, FileMode.OpenOrCreate);
                 byte[] data = new byte[mRecordSize * mRecordCount];
                 mFileStream.Write(data, 0, mRecordSize * mRecordCount);
                 mFileStream.Flush();
                 mFileStream.Close();
             }
+
             mSequenceFile = MemoryMappedFile.CreateFromFile(filename);
             mAccessor = mSequenceFile.CreateViewAccessor(mRecordSize, 0, MemoryMappedFileAccess.ReadWrite);
             mSequenceItems = new Dictionary<string, SequenceItem>();
@@ -46,7 +46,6 @@ namespace BNR
 
         public SequenceParameter()
         {
-
         }
 
 
@@ -61,11 +60,10 @@ namespace BNR
                     result.Index = mSequenceItems.Count;
                     result.Name = key;
                     mSequenceItems[key] = result;
-
                 }
+
                 return result;
             }
-
         }
 
         private static void Save(SequenceItem item)
@@ -73,11 +71,10 @@ namespace BNR
             lock (mAccessor)
             {
                 string value = item.Name + "=" + item.Value.ToString();
-                Int16 length = (Int16)Encoding.UTF8.GetBytes(value, 0, value.Length, mBuffer, 2);
+                Int16 length = (Int16) Encoding.UTF8.GetBytes(value, 0, value.Length, mBuffer, 2);
                 BitConverter.GetBytes(length).CopyTo(mBuffer, 0);
                 mAccessor.WriteArray<byte>(item.Index * mRecordSize, mBuffer, 0, mBuffer.Length);
             }
-
         }
 
         private static void Load()
@@ -98,7 +95,6 @@ namespace BNR
                 }
                 else
                     break;
-
             }
         }
 
@@ -109,7 +105,6 @@ namespace BNR
             string[] items = RuleAnalysis.Execute(properties[0]);
             foreach (string p in items)
             {
-
                 string[] sps = RuleAnalysis.GetProperties(p);
                 IParameterHandler handler = null;
                 if (Factory.Handlers.TryGetValue(sps[0], out handler))
@@ -124,32 +119,20 @@ namespace BNR
                 item.Value++;
                 sb.Append(item.Value.ToString(properties[1]));
             }
-           Save(item);
 
+            Save(item);
         }
 
         public class SequenceItem
         {
-
-
-
-
             public int Index { get; set; }
 
             public string Name { get; set; }
 
             public long Value { get; set; }
-
-
         }
 
 
-
-
-        public BNRFactory Factory
-        {
-            get;
-            set;
-        }
+        public BNRFactory Factory { get; set; }
     }
 }

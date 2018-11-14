@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace BNR
 {
@@ -10,15 +8,7 @@ namespace BNR
     {
         private Dictionary<string, IParameterHandler> mHandlers = new Dictionary<string, IParameterHandler>();
 
-
-        public IDictionary<string, IParameterHandler> Handlers
-        {
-
-            get
-            {
-                return mHandlers;
-            }
-        }
+        public IDictionary<string, IParameterHandler> Handlers => mHandlers;
 
         public void Initialize()
         {
@@ -44,20 +34,23 @@ namespace BNR
                     mDefault = new BNRFactory();
                     mDefault.Initialize();
                 }
+
                 return mDefault;
             }
         }
 
         public void Register(Type type)
         {
-            ParameterTypeAttribute[] result = (ParameterTypeAttribute[])type.GetCustomAttributes(typeof(ParameterTypeAttribute), false);
+            ParameterTypeAttribute[] result =
+                (ParameterTypeAttribute[]) type.GetCustomAttributes(typeof(ParameterTypeAttribute), false);
             if (result != null && result.Length > 0)
             {
-                mHandlers[result[0].Name] =(IParameterHandler) Activator.CreateInstance(type);
+                mHandlers[result[0].Name] = (IParameterHandler) Activator.CreateInstance(type);
                 mHandlers[result[0].Name].Factory = this;
             }
         }
-        public void Register<T>() where T:SequenceParameter
+
+        public void Register<T>() where T : SequenceParameter
         {
             Register(typeof(T));
         }
@@ -70,11 +63,12 @@ namespace BNR
             {
                 string[] properties = RuleAnalysis.GetProperties(item);
                 IParameterHandler handler = null;
-                if(mHandlers.TryGetValue(properties[0],out handler))
+                if (mHandlers.TryGetValue(properties[0], out handler))
                 {
-                     handler.Execute(sb, properties[1]);
+                    handler.Execute(sb, properties[1]);
                 }
             }
+
             return sb.ToString();
         }
     }

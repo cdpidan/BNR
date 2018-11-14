@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BNR
@@ -11,16 +9,11 @@ namespace BNR
     [ParameterType("D")]
     public class DateParameterHandler : IParameterHandler
     {
-
         public void Execute(StringBuilder sb, string value)
         {
             sb.Append(DateTime.Now.ToString(value));
         }
 
-        public BNRFactory Factory
-        {
-            get;
-            set;
-        }
+        public BNRFactory Factory { get; set; }
     }
 }

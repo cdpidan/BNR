@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BNR
 {
     public class RuleAnalysis
     {
-        [ThreadStatic]
-        private static Stack<char> stack;
+        [ThreadStatic] private static Stack<char> stack;
 
         public static string[] Execute(string rule)
         {
@@ -24,7 +22,6 @@ namespace BNR
                     if (stack.Count > 0)
                         sb.Append(c);
                     stack.Push(c);
-                  
                 }
                 else if (c == '}')
                 {
@@ -42,13 +39,14 @@ namespace BNR
                     sb.Append(c);
                 }
             }
+
             return items.ToArray();
         }
 
         public static string[] GetProperties(string value)
         {
             int index = value.IndexOf(':');
-            return new string[] { value.Substring(0,index),value.Substring(index+1,value.Length -index-1)};
+            return new string[] {value.Substring(0, index), value.Substring(index + 1, value.Length - index - 1)};
         }
     }
 }
