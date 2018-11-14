@@ -1,7 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>IKende</Authors>
+    <RepositoryUrl>https://github.com/IKende/BNR</RepositoryUrl>
+    <Description>BNR
+业务流水号规则生成器
+
+{S:OD}{CN:广州}{D:yyyyMM}{N:{S:ORDER}{CN:广州}{D:yyyyMM}/00000000}{N:{S:ORDER_SUB}{CN:广州}{D:yyyyMM}/00000000}
+
+ODGZ2016090029297200292972
+
+{CN:广州}{D:yyyyMMdd}{N:{D:yyyyMMdd}/0000}{S:RJ}
+
+GZ20160913292971RJ</Description>
+    <PackageProjectUrl>https://github.com/IKende/BNR</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="bin\Release\netstandard2.0\BNR.pdb">
+      <PackagePath>lib/netstandard2.0/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
 
 </Project>
