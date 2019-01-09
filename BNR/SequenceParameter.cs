@@ -28,7 +28,11 @@ namespace BNR
 
         static SequenceParameter()
         {
-            string filename = AppDomain.CurrentDomain.BaseDirectory + "sequence.data";
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SequenceData");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string filename = Path.Combine(path, "sequence.data");
             if (!File.Exists(filename))
             {
                 mFileStream = File.Open(filename, FileMode.OpenOrCreate);
@@ -71,7 +75,7 @@ namespace BNR
             lock (mAccessor)
             {
                 string value = item.Name + "=" + item.Value.ToString();
-                Int16 length = (Int16) Encoding.UTF8.GetBytes(value, 0, value.Length, mBuffer, 2);
+                Int16 length = (Int16)Encoding.UTF8.GetBytes(value, 0, value.Length, mBuffer, 2);
                 BitConverter.GetBytes(length).CopyTo(mBuffer, 0);
                 mAccessor.WriteArray<byte>(item.Index * mRecordSize, mBuffer, 0, mBuffer.Length);
             }

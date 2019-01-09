@@ -8,3 +8,6 @@
 {CN:广州}{D:yyyyMMdd}{N:{D:yyyyMMdd}/0000}{S:RJ}
 
   GZ20160913292971RJ
+
+## 映射文件目录
+SequenceData\sequence.data

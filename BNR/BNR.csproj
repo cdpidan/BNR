@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>IKende</Authors>
-    <RepositoryUrl>https://github.com/IKende/BNR</RepositoryUrl>
+    <RepositoryUrl>https://github.com/cdpidan/BNR</RepositoryUrl>
     <Description>BNR
 业务流水号规则生成器
 
@@ -15,7 +15,8 @@ ODGZ2016090029297200292972
 {CN:广州}{D:yyyyMMdd}{N:{D:yyyyMMdd}/0000}{S:RJ}
 
 GZ20160913292971RJ</Description>
-    <PackageProjectUrl>https://github.com/IKende/BNR</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

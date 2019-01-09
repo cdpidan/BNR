@@ -12,7 +12,7 @@ namespace BNRCore.TestConsole
             string[] rule = new string[]
             {
                 "{S:OD}{CN:广州}{D:yyyyMM}{N:{S:ORDER}{CN:广州}{D:yyyyMM}/00000000}{N:{S:ORDER_SUB}{CN:广州}{D:yyyyMM}/00000000}",
-                "{S:FXSJ}{D:yyyyMM}{N:{D:yyyy}/0000}"
+                "{S:FXSJ}{D:yyyyMM}{N:{S:FXSJ}{D:yyyy}/0000}"
             };
             foreach (string item in rule)
             {
